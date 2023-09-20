@@ -1,5 +1,42 @@
 #include "main.h"
 #include <unistd.h>
+#include <stdio.h>
+
+int _itoa(char *str, int num) {
+	int i = 0, start, end, temp;
+
+    if (num == 0) {
+        str[i++] = '0';
+    } else {
+        if (num < 0) {
+            str[i++] = '-';
+            num = -num;
+        }
+
+        temp = num;
+        while (temp != 0) {
+            int digit = temp % 10;
+            str[i++] = digit + '0';
+            temp /= 10;
+        }
+
+        start = (str[0] == '-') ? 1 : 0;
+        end = i - 1;
+
+        while (start < end) {
+            char temp = str[start];
+            str[start] = str[end];
+            str[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    str[i] = '\0';
+    return i;
+}
+
+
 
 int _printf(const char *format, ...);
 int _printf(const char *format, ...)
@@ -48,6 +85,15 @@ int _printf(const char *format, ...)
 					str_len++;
 				write(1, str, str_len);
 				chara_print += str_len;
+			}
+			else if (*format == 'd' || *format == 'i')
+			{
+				int num = va_arg(list_of_args, int);
+				char num_str[15];
+				int len = _itoa(num_str, num);
+
+				write(1, num_str, len);
+				chara_print += len;
 			}
 		}
 		format++;
