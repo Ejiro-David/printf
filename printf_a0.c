@@ -1,6 +1,7 @@
 #include "main.h"
 #include <unistd.h>
 
+int _printf(const char *format, ...);
 int _printf(const char *format, ...)
 {
 	int chara_print = 0;
@@ -8,25 +9,25 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 	{
-		return -1;
+		return (-1);
 	}
 
 	va_start(list_of_args, format);
 
-	while (*format)  
+	while (*format)
 	{
 		if (*format != '%')
 		{
-			write(1, format, 1); 
+			write(1, format, 1);
 			chara_print++;
 		}
 		else
 		{
-			format++; 
+			format++;
 			if (*format == '\0')
 				break;
 
-			if (*format == '%') 
+			if (*format == '%')
 			{
 				write(1, format, 1);
 				chara_print++;
@@ -34,6 +35,7 @@ int _printf(const char *format, ...)
 			else if (*format == 'c')
 			{
 				char c = va_arg(list_of_args, int);
+
 				write(1, &c, 1);
 				chara_print++;
 			}
@@ -44,7 +46,6 @@ int _printf(const char *format, ...)
 
 				while (str[str_len] != '\0')
 					str_len++;
-				
 				write(1, str, str_len);
 				chara_print += str_len;
 			}
@@ -53,8 +54,6 @@ int _printf(const char *format, ...)
 	}
 	va_end(list_of_args);
 
-	return chara_print;
-
-
+	return (chara_print);
 }
 
