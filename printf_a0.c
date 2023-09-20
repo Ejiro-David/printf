@@ -155,6 +155,48 @@ int _printf(const char *format, ...)
 				write(1, binary_str, len);
 				chara_print += len;
 			}
+			else if (*format == 'u')
+			{
+				unsigned int num = va_arg(list_of_args, unsigned int);
+				char num_str[15];
+				int len = _utoa(num_str, num, 10);
+				write(1, num_str, len);
+				chara_print += len;
+			}
+			else if (*format == 'o')
+			{
+				unsigned int num = va_arg(list_of_args, unsigned int);
+				char num_str[15];
+				int len = _utoa(num_str, num, 8);
+				write(1, num_str, len);
+				chara_print += len;
+			}
+			else if (*format == 'x')
+			{
+				unsigned int num = va_arg(list_of_args, unsigned int);
+				char num_str[15];
+				int len = _utoa(num_str, num, 16);
+				write(1, num_str, len);
+				chara_print += len;
+			}
+			else if (*format == 'X')
+			{
+				unsigned int num = va_arg(list_of_args, unsigned int);
+				char num_str[15];
+				int len = _utoa(num_str, num, 16);
+
+				for (int i = 0; i < len; i++)
+				{
+ 					if (num_str[i] >= 'a' && num_str[i] <= 'f')
+					{
+						num_str[i] = num_str[i] - 32;
+					}
+				
+				}
+                		write(1, num_str, len);
+                		chara_print += len;
+            		}
+
 		}
 		format++;
 	}
@@ -162,4 +204,3 @@ int _printf(const char *format, ...)
 
 	return (chara_print);
 }
-
