@@ -50,37 +50,38 @@ int _itoa(char *str, int num)
 	return (i);
 }
 
-int _utoa(char *str, unsigned int num) {
-    int i = 0, start, end;
+int _utoa(char *str, unsigned int num)
+{
+	int i = 0, start, end;
 
-    if (num == 0)
-    {
-        str[i++] = '0';
-    }
-    else
-    {
-        while (num > 0)
+	if (num == 0)
 	{
-            int digit = num % 2;
-            str[i++] = digit + '0';
-            num /= 2;
-        }
-    }
+		str[i++] = '0';
+	}
+	else
+	{
+		while (num > 0)
+		{
+			int digit = num % 2;
+			str[i++] = digit + '0';
+			num /= 2;
+		}
+	}
 
-    str[i] = '\0';
+	str[i] = '\0';
 
-    start = 0;
-    end = i - 1;
-    while (start < end)
-    {
-        char temp = str[start];
-        str[start] = str[end];
-        str[end] = temp;
-        start++;
-        end--;
-    }
+	start = 0;
+	end = i - 1;
+	while (start < end)
+	{
+		char temp = str[start];
+		str[start] = str[end];
+		str[end] = temp;
+		start++;
+		end--;
+	}
 
-    return (i);
+	return (i);
 }
 
 
