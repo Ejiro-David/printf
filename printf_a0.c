@@ -47,6 +47,40 @@ int _itoa(char *str, int num){
     return i;
 }
 
+int _utoa(char *str, unsigned int num) {
+    int i = 0, start, end;
+
+    if (num == 0)
+    {
+        str[i++] = '0';
+    }
+    else
+    {
+        while (num > 0)
+	{
+            int digit = num % 2;
+            str[i++] = digit + '0';
+            num /= 2;
+        }
+    }
+
+    str[i] = '\0';
+
+    start = 0;
+    end = i - 1;
+    while (start < end)
+    {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
+
+    return (i);
+}
+
+
 /**
  * _printf - prints formated string to standard output
  * @format: format to follow.
@@ -108,6 +142,14 @@ int _printf(const char *format, ...)
 				int len = _itoa(num_str, num);
 
 				write(1, num_str, len);
+				chara_print += len;
+			}
+			else if (*format == 'b')
+			{
+				unsigned int num = va_arg(list_of_args, unsigned int);
+				char binary_str[33];
+				int len = _utoa(binary_str, num);
+				write(1, binary_str, len);
 				chara_print += len;
 			}
 		}
