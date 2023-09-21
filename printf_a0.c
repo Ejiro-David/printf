@@ -50,38 +50,45 @@ int _itoa(char *str, int num)
 	return (i);
 }
 
-int _utoa(char *str, unsigned int num)
+int _utoa(char *str, unsigned int num, int base);
+int _utoa(char *str, unsigned int num, int base)
 {
-	int i = 0, start, end;
+    int i = 0, start, end;
 
-	if (num == 0)
-	{
-		str[i++] = '0';
-	}
-	else
-	{
-		while (num > 0)
-		{
-			int digit = num % 2;
-			str[i++] = digit + '0';
-			num /= 2;
-		}
-	}
+    if (num == 0)
+    {
+        str[i++] = '0';
+    }
+    else
+    {
+        while (num > 0)
+        {
+            int digit = num % base;
+            if (digit < 10)
+            {
+                str[i++] = digit + '0';
+            }
+            else
+            {
+                str[i++] = digit - 10 + 'A';            }
+            num /= base;
+        }
+    }
 
-	str[i] = '\0';
+    str[i] = '\0';
 
-	start = 0;
-	end = i - 1;
-	while (start < end)
-	{
-		char temp = str[start];
-		str[start] = str[end];
-		str[end] = temp;
-		start++;
-		end--;
-	}
+    start = 0;
+    end = i - 1;
+    while (start < end)
+    {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
 
-	return (i);
+    return i;
 }
 
 
@@ -152,7 +159,7 @@ int _printf(const char *format, ...)
 			{
 				unsigned int num = va_arg(list_of_args, unsigned int);
 				char binary_str[33];
-				int len = _utoa(binary_str, num);
+				int len = _utoa(binary_str, num, 2);
 				write(1, binary_str, len);
 				chara_print += len;
 			}
@@ -182,11 +189,12 @@ int _printf(const char *format, ...)
 			}
 			else if (*format == 'X')
 			{
+				int i;
 				unsigned int num = va_arg(list_of_args, unsigned int);
 				char num_str[15];
 				int len = _utoa(num_str, num, 16);
 
-				for (int i = 0; i < len; i++)
+				for (i = 0; i < len; i++)
 				{
  					if (num_str[i] >= 'a' && num_str[i] <= 'f')
 					{
