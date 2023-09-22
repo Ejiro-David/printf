@@ -7,7 +7,7 @@
  */
 
 int _printf(const char *format, ...);
-int _printf(const char *format, ...);
+int _printf(const char *format, ...)
 {
 	char buffer[1024];
 	int chara_print = 0;
