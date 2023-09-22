@@ -61,8 +61,16 @@ int _printf(const char *format, ...)
 
 			if (*format == '%')
 			{
-				buffer[buffer_index++] = *format;
-				chara_print++;
+				format++;
+				if (*format == '%')
+				{
+					buffer[buffer_index++] = '%';
+				}
+				else
+				{
+					buffer[buffer_index++] = '%';
+					buffer[buffer_index++] = *format;
+				}
 			}
 			else if (*format == 'c')
 			{
@@ -83,7 +91,7 @@ int _printf(const char *format, ...)
 				}
 				chara_print += str_len;
 			}
-			else if (*format == 'd' || *format == 'i')
+			else if (*format == 'd')
 			{
 				int num = va_arg(list_of_args, int);
 				char num_str[15];
@@ -92,8 +100,20 @@ int _printf(const char *format, ...)
 				for (i = 0; i < len; i++)
 				{
 					buffer[buffer_index++] = num_str[i];
+					chara_print += len;
 				}
-				chara_print += len;
+			}
+			else if (*format == 'i')
+			{
+				int num = va_arg(list_of_args, int);
+                                char num_str[15];
+                                int len = _itoa(num_str, num);
+
+                                for (i = 0; i < len; i++)
+                                {
+                                        buffer[buffer_index++] = num_str[i];
+					chara_print += len;
+                                }
 			}
 			else if (*format == 'b')
 			{
@@ -152,9 +172,9 @@ int _printf(const char *format, ...)
 					{
 						num_str[i] = num_str[i] - 32;
 					}
-				
+
+					buffer[buffer_index++] = num_str[i];
 				}
-				buffer[buffer_index++] = num_str[i];
                 		chara_print += len;
             		}
 			else if (*format == 'p')
