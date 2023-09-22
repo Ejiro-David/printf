@@ -101,8 +101,11 @@ int _utoa(char *str, unsigned int num, int base)
 int _printf(const char *format, ...);
 int _printf(const char *format, ...)
 {
+	char buffer[1024];
 	int chara_print = 0;
+	int buffer_index, i;
 	va_list list_of_args;
+	char flags[3];
 
 	if (format == NULL)
 	{
@@ -111,12 +114,21 @@ int _printf(const char *format, ...)
 
 	va_start(list_of_args, format);
 
+	buffer_index = 0;
+
+
 	while (*format)
 	{
+		if (buffer_index >= 1023)
+		{
+			write(1, buffer, buffer_index);
+			chara_print += buffer_index;
+			buffer_index = 0;
+		}
+
 		if (*format != '%')
 		{
-			write(1, format, 1);
-			chara_print++;
+			buffer[buffer_index++] = *format;
 		}
 		else
 		{
@@ -124,16 +136,32 @@ int _printf(const char *format, ...)
 			if (*format == '\0')
 				break;
 
+
+			flags[3] = '\0';
+
+			while (*format == '+' || *format == ' ' || *format == '#')
+			{
+				if (*format == '+')
+					flags[0] = '+';
+				else if (*format == ' ')
+					flags[1] = ' ';
+				else if (*format == '#')
+					flags[2] = '#';
+
+				format++;
+			}
+
+
 			if (*format == '%')
 			{
-				write(1, format, 1);
+				buffer[buffer_index++] = *format;
 				chara_print++;
 			}
 			else if (*format == 'c')
 			{
 				char c = va_arg(list_of_args, int);
 
-				write(1, &c, 1);
+				buffer[buffer_index++] = c;
 				chara_print++;
 			}
 			else if (*format == 's')
@@ -142,8 +170,10 @@ int _printf(const char *format, ...)
 				int str_len = 0;
 
 				while (str[str_len] != '\0')
+				{
+					buffer[buffer_index++] = str[str_len];
 					str_len++;
-				write(1, str, str_len);
+				}
 				chara_print += str_len;
 			}
 			else if (*format == 'd' || *format == 'i')
@@ -152,7 +182,10 @@ int _printf(const char *format, ...)
 				char num_str[15];
 				int len = _itoa(num_str, num);
 
-				write(1, num_str, len);
+				for (i = 0; i < len; i++)
+				{
+					buffer[buffer_index++] = num_str[i];
+				}
 				chara_print += len;
 			}
 			else if (*format == 'b')
@@ -160,7 +193,10 @@ int _printf(const char *format, ...)
 				unsigned int num = va_arg(list_of_args, unsigned int);
 				char binary_str[33];
 				int len = _utoa(binary_str, num, 2);
-				write(1, binary_str, len);
+
+				for (i = 0; i < len; i++)
+					buffer[buffer_index++] = binary_str[i];
+
 				chara_print += len;
 			}
 			else if (*format == 'u')
@@ -168,7 +204,11 @@ int _printf(const char *format, ...)
 				unsigned int num = va_arg(list_of_args, unsigned int);
 				char num_str[15];
 				int len = _utoa(num_str, num, 10);
-				write(1, num_str, len);
+				int i;
+
+				for (i = 0; i < len; i++)
+					buffer[buffer_index++] = num_str[i];
+
 				chara_print += len;
 			}
 			else if (*format == 'o')
@@ -176,7 +216,10 @@ int _printf(const char *format, ...)
 				unsigned int num = va_arg(list_of_args, unsigned int);
 				char num_str[15];
 				int len = _utoa(num_str, num, 8);
-				write(1, num_str, len);
+
+				for (i = 0; i < len; i++)
+					buffer[buffer_index++] = num_str[i];
+
 				chara_print += len;
 			}
 			else if (*format == 'x')
@@ -184,12 +227,14 @@ int _printf(const char *format, ...)
 				unsigned int num = va_arg(list_of_args, unsigned int);
 				char num_str[15];
 				int len = _utoa(num_str, num, 16);
-				write(1, num_str, len);
+
+				for (i = 0; i < len; i++)
+                                        buffer[buffer_index++] = num_str[i];
+
 				chara_print += len;
 			}
 			else if (*format == 'X')
 			{
-				int i;
 				unsigned int num = va_arg(list_of_args, unsigned int);
 				char num_str[15];
 				int len = _utoa(num_str, num, 16);
@@ -202,12 +247,44 @@ int _printf(const char *format, ...)
 					}
 				
 				}
-                		write(1, num_str, len);
+				buffer[buffer_index++] = num_str[i];
                 		chara_print += len;
             		}
+			else if (*format == 'p')
+			{
+				int len;
+				void *ptr = va_arg(list_of_args, void *);
+				unsigned long address = (unsigned long)ptr;
+				char hex_address[18];
+				sprintf(hex_address, "0x%lx", address);
+				len = strlen(hex_address);
+
+				for (i = 0; i < len; i++)
+				{
+					buffer[buffer_index++] = hex_address[i];
+					if (buffer_index >= 1023)
+					{
+						write(1, buffer, buffer_index);
+						chara_print += buffer_index;
+						buffer_index = 0;
+					}
+				}
+			}
+
+			for (i = 0; i < 3; i++)
+			{
+				if (flags[i] != '\0')
+					buffer[buffer_index++] = flags[i];
+			}
 
 		}
 		format++;
+	}
+	if (buffer_index > 0)
+	{
+		write(1, buffer, buffer_index);
+		chara_print += buffer_index;
+		buffer_index = 0;
 	}
 	va_end(list_of_args);
 
