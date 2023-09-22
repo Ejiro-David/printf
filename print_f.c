@@ -1,12 +1,12 @@
 #include "main.h"
 
 /**
- * @format: format to follow.
+ * @format: format to be followed for character string
  * Return: lenght of output string
  */
 
 int _printf(const char *format, ...);
-int _printf(const char *format, ...)
+int _printf(const char *format, ...);
 {
 	char buffer[1024];
 	int chara_print = 0;
@@ -106,14 +106,14 @@ int _printf(const char *format, ...)
 			else if (*format == 'i')
 			{
 				int num = va_arg(list_of_args, int);
-                                char num_str[15];
-                                int len = _itoa(num_str, num);
+				char num_str[15];
+				int len = _itoa(num_str, num);
 
-                                for (i = 0; i < len; i++)
-                                {
-                                        buffer[buffer_index++] = num_str[i];
+				for (i = 0; i < len; i++)
+				{
+					buffer[buffer_index++] = num_str[i];
 					chara_print += len;
-                                }
+				}
 			}
 			else if (*format == 'b')
 			{
@@ -156,7 +156,7 @@ int _printf(const char *format, ...)
 				int len = _utoa(num_str, num, 16);
 
 				for (i = 0; i < len; i++)
-                                        buffer[buffer_index++] = num_str[i];
+					buffer[buffer_index++] = num_str[i];
 
 				chara_print += len;
 			}
@@ -168,21 +168,22 @@ int _printf(const char *format, ...)
 
 				for (i = 0; i < len; i++)
 				{
- 					if (num_str[i] >= 'a' && num_str[i] <= 'f')
+					if (num_str[i] >= 'a' && num_str[i] <= 'f')
 					{
 						num_str[i] = num_str[i] - 32;
 					}
 
 					buffer[buffer_index++] = num_str[i];
 				}
-                		chara_print += len;
-            		}
+				chara_print += len;
+			}
 			else if (*format == 'p')
 			{
 				int len;
 				void *ptr = va_arg(list_of_args, void *);
 				unsigned long address = (unsigned long)ptr;
 				char hex_address[18];
+
 				sprintf(hex_address, "0x%lx", address);
 				len = strlen(hex_address);
 
