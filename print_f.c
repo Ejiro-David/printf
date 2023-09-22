@@ -1,6 +1,7 @@
 #include "main.h"
 
 /**
+ * _printf - mimicks printf function
  * @format: format to be followed for character string
  * Return: lenght of output string
  */
