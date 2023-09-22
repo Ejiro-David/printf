@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * @format: format to follow.
  * Return: lenght of output string
