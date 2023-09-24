@@ -1,5 +1,13 @@
 #include "main.h"
 
+/**
+* format_o - format specifier for o
+* @buffer: buffer storage
+* @buffer_index: buffer_index
+* @list_of_args: list of arguments
+* Return: buffer_index
+*/
+
 int format_o(char *buffer, int buffer_index, va_list list_of_args)
 {
 	unsigned int num = va_arg(list_of_args, unsigned int);

@@ -1,5 +1,13 @@
 #include "main.h"
 
+/**
+ * format_u - Handle the 's' flag
+ * @buffer: Buffer to store the formatted string
+ * @buffer_index: Current index in the buffer
+ * @list_of_args: Arguments list
+ * Return: Buffer index
+ */
+
 int format_u(char *buffer, int buffer_index, va_list list_of_args)
 {
 	unsigned int num = va_arg(list_of_args, unsigned int);

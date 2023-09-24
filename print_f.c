@@ -1,5 +1,12 @@
 #include "main.h"
 
+/**
+ * _printf - potato chips
+ * @format: string format
+ * Return: Length of character
+ */
+
+int _printf(const char *format, ...);
 int _printf(const char *format, ...)
 {
 	char buffer[1024];
