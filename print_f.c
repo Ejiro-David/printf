@@ -4,10 +4,9 @@ int _printf(const char *format, ...)
 {
 	char buffer[1024];
 	int chara_print = 0;
-	int buffer_index, i;
+	int buffer_index;
 	va_list list_of_args;
-	char flags[3];
-
+	
 	if (format == NULL)
 	{
 		return (-1);
