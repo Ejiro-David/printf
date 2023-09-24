@@ -10,40 +10,42 @@
 
 int _utoa(char *str, unsigned int num, int base)
 {
-    int i = 0, start, end;
+	int i = 0, start, end;
 
-    if (num == 0)
-    {
-        str[i++] = '0';
-    }
-    else
-    {
-        while (num > 0)
-        {
-            int digit = num % base;
-            if (digit < 10)
-            {
-                str[i++] = digit + '0';
-            }
-            else
-            {
-                str[i++] = digit - 10 + 'A';            }
-            num /= base;
-        }
-    }
+	if (num == 0)
+	{
+		str[i++] = '0';
+	}
+	else
+	{
+		while (num > 0)
+		{
+			int digit = num % base;
 
-    str[i] = '\0';
+			if (digit < 10)
+			{
+				str[i++] = digit + '0';
+			}
+			else
+			{
+				str[i++] = digit - 10 + 'A';            }
+			num /= base;
+		}
+	}
 
-    start = 0;
-    end = i - 1;
-    while (start < end)
-    {
-        char temp = str[start];
-        str[start] = str[end];
-        str[end] = temp;
-        start++;
-        end--;
-    }
+	str[i] = '\0';
 
-    return i;
+	start = 0;
+	end = i - 1;
+	while (start < end)
+	{
+		char temp = str[start];
+
+		str[start] = str[end];
+		str[end] = temp;
+		start++;
+		end--;
+	}
+
+	return (i);
 }
