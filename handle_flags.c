@@ -8,11 +8,12 @@
  */
 void handle_plus_flag(char *buffer, int *buffer_index, va_list list_of_args)
 {
-    char sign = va_arg(list_of_args, int);
+	char sign = va_arg(list_of_args, int);
 
-    if (sign >= 0) {
-        buffer[(*buffer_index)++] = '+';
-    }
+	if (sign >= 0)
+	{
+		buffer[(*buffer_index)++] = '+';
+	}
 }
 
 
@@ -24,11 +25,10 @@ void handle_plus_flag(char *buffer, int *buffer_index, va_list list_of_args)
  */
 void handle_minus_flag(char *buffer, int *buffer_index, va_list list_of_args)
 {
-    char sign = va_arg(list_of_args, int);
+	char sign = va_arg(list_of_args, int);
 
-    if (sign >= 0) {
-        buffer[(*buffer_index)++] = '-';
-    }
+	if (sign >= 0)
+		buffer[(*buffer_index)++] = '-';
 }
 
 
@@ -40,11 +40,12 @@ void handle_minus_flag(char *buffer, int *buffer_index, va_list list_of_args)
  */
 void handle_space_flag(char *buffer, int *buffer_index, va_list list_of_args)
 {
-    char sign = va_arg(list_of_args, int);
+	char sign = va_arg(list_of_args, int);
 
-    if (sign >= 0) {
-        buffer[(*buffer_index)++] = ' ';
-    }
+	if (sign >= 0)
+	{
+		buffer[(*buffer_index)++] = ' ';
+	}
 }
 
 /**
@@ -55,15 +56,16 @@ void handle_space_flag(char *buffer, int *buffer_index, va_list list_of_args)
  */
 void handle_hash_flag(char *buffer, int *buffer_index, va_list list_of_args)
 {
-    // Assuming this flag is used with an integer argument for demonstration purposes.
-    int value = va_arg(list_of_args, int);
-    char temp_buffer[20];
+	int value = va_arg(list_of_args, int);
+	char temp_buffer[20];
 
-    sprintf(temp_buffer, "0x%X", value);
+	sprintf(temp_buffer, "0x%X", value);
 
-    int temp_index = 0;
-    while (temp_buffer[temp_index] != '\0') {
-        buffer[(*buffer_index)++] = temp_buffer[temp_index++];
-    }
+	int temp_index = 0;
+
+	while (temp_buffer[temp_index] != '\0')
+	{
+		buffer[(*buffer_index)++] = temp_buffer[temp_index++];
+	}
 }
 
