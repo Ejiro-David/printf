@@ -1,11 +1,11 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <ctype.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <ctype.h>
 
 int _printf(const char *format, ...);
 int _utoa(char *str, unsigned int num, int base);

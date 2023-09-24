@@ -21,6 +21,10 @@ int _utoa(char *str, unsigned int num, int base)
 		while (num > 0)
 		{
 			int digit = num % base;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a4dcb7282e97817d7d03f386996ba3732e19367f
 			if (digit < 10)
 			{
 				str[i++] = digit + '0';
@@ -39,11 +43,19 @@ int _utoa(char *str, unsigned int num, int base)
 	while (start < end)
 	{
 		char temp = str[start];
+<<<<<<< HEAD
+=======
+
+>>>>>>> a4dcb7282e97817d7d03f386996ba3732e19367f
 		str[start] = str[end];
 		str[end] = temp;
 		start++;
 		end--;
 	}
 
+<<<<<<< HEAD
 	return i;
+=======
+	return (i);
+>>>>>>> a4dcb7282e97817d7d03f386996ba3732e19367f
 }
