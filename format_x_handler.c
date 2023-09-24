@@ -8,7 +8,7 @@ int format_x(char *buffer, int buffer_index, va_list list_of_args)
 
     for (int i = 0; i < len; i++)
     {
-        buffer[buffer_index++] = num_str[i];
+        buffer[buffer_index++] = tolower(num_str[i]);
     }
     return buffer_index;
 }

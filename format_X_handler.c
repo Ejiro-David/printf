@@ -12,7 +12,8 @@ int format_X(char *buffer, int buffer_index, va_list list_of_args)
         {
             num_str[i] = num_str[i] - 32;
         }
-        buffer[buffer_index++] = num_str[i];
+        buffer[buffer_index++] = toupper(num_str[i]);
+	
     }
     return buffer_index;
 }

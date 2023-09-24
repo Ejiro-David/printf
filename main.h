@@ -5,6 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <ctype.h>
 
 int _printf(const char *format, ...);
 int _utoa(char *str, unsigned int num, int base);
