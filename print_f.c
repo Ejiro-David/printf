@@ -185,7 +185,7 @@ int _printf(const char *format, ...)
 				unsigned long address = (unsigned long)ptr;
 				char hex_address[18];
 
-				sprintf(hex_address, "0x%lx", address);
+				sprintf(hex_address, "0x%lX", address);
 				len = strlen(hex_address);
 
 				for (i = 0; i < len; i++)
