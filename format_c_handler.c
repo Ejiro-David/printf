@@ -8,14 +8,9 @@
  * Return: buffer_index
  */
 
-int format_c(char *buffer, int buffer_index, va_list list_of_args) {
-  char c = va_arg(list_of_args, int);
-<<<<<<< HEAD
-  buffer[buffer_index++] = c;
-  return buffer_index;
-}
-=======
->>>>>>> a4dcb7282e97817d7d03f386996ba3732e19367f
+int format_c(char *buffer, int buffer_index, va_list list_of_args)
+{
+char c = va_arg(list_of_args, int);
 
 buffer[buffer_index++] = c;
 return (buffer_index);
